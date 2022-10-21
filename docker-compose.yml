@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  app:
+    env_file: .env
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PORT=${PORT}
+        - MONGO_HOSTS=${MONGO_HOSTS}
+        - MONGO_DATABASE=${MONGO_DATABASE}
+        - MONGO_OPTIONS=${MONGO_OPTIONS}
+        - TIMEOUT_ON_SECONDS=${TIMEOUT_ON_SECONDS}
+        - OPERATION_ON_EACH_CONTEXT=${TIMEOUT_ON_SECONDS}
+        - SECRET=${SECRET}
+        - REFRESH_SECRET=${REFRESH_SECRET}
+    ports:
+      - 8800:8800
+    restart: on-failure
+    volumes:
+      - api:/usr/src/app/
+    networks:
+      - prod
+
+volumes:
+  api:
+
+networks:
+  prod:
+    driver: bridge

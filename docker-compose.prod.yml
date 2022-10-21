@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  mongo-dev:
+    image: "mongo:latest"
+    container_name: mongo_prod_ecommerce
+    networks:
+      - prod
+    environment:
+      - MONGO_INITDB_DATABASE=ecommerce
+    volumes:
+      - db:/data/db
+    expose:
+      - 27017
+    ports:
+      - 27317:27017
+
+volumes:
+  db:
+
+networks:
+  prod:
+    driver: bridge
